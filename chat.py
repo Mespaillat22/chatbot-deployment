@@ -1,10 +1,10 @@
-import random
 import json
 
 import torch
 
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
+import secrets
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -43,7 +43,7 @@ def get_response(msg):
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                return random.choice(intent['responses'])
+                return secrets.SystemRandom().choice(intent['responses'])
     
     return "I do not understand..."
 
